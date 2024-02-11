@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_connect/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -21,34 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Git Connect'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(
-          widget.title,
-          style: const TextStyle(color: Colors.black),
-        ),
-      ),
-      body: const Center(),
-      // This trailing comma makes auto-formatting nicer for build methods.
+      home: const Home('Git Connect'),
     );
   }
 }
