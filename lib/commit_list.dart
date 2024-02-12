@@ -19,6 +19,7 @@ class _CommitListState extends State<CommitList> {
       return const Center(
           child: SizedBox(
         height: 50,
+        width: 50,
         child: CircularProgressIndicator(),
       ));
     }
@@ -36,17 +37,48 @@ class _CommitListState extends State<CommitList> {
               decoration: BoxDecoration(
                   color: Colors.black45.withOpacity(0.25),
                   borderRadius: const BorderRadius.all(Radius.circular(12))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  Text(
-                    commits[index].message!,
-                    style: const TextStyle(color: Colors.white),
+                  //Author
+                  Expanded(
+                    flex: 1,
+                    child: Tooltip(
+                      message: commits[index].author,
+                      child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: const BoxDecoration(
+                              color: Colors.black, shape: BoxShape.circle),
+                          child: Center(
+                            child: Text(
+                              commits[index].author![0],
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )),
+                    ),
                   ),
-                  const SizedBox(height: 5),
-                  Text(
-                      '${DateFormat.MMMMd().format(commits[index].date!)}, ${DateFormat.Hm().format(commits[index].date!)}',
-                      style: const TextStyle(color: Colors.grey, fontSize: 12))
+
+                  const SizedBox(width: 8),
+                  //Info
+                  Expanded(
+                    flex: 8,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          commits[index].message!,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                            '${DateFormat.MMMMd().format(commits[index].date!)}, ${DateFormat.Hm().format(commits[index].date!)}',
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 12))
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
