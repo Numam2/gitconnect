@@ -24,12 +24,6 @@ class ProjectInfo extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 14),
               softWrap: true,
             ),
-            SizedBox(height: 20),
-            Text(
-              'The commit history is retrieved using Git API. To view the list just click on "Commit List"',
-              style: TextStyle(color: Colors.white, fontSize: 14),
-              softWrap: true,
-            ),
           ],
         ),
       ),

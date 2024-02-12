@@ -1,6 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:git_connect/history.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class CommitList extends StatefulWidget {
   const CommitList({super.key});
@@ -10,38 +11,47 @@ class CommitList extends StatefulWidget {
 }
 
 class _CommitListState extends State<CommitList> {
-  List<dynamic> commits = [];
-
-  Future<void> fetchCommits() async {
-    final response = await http.get(
-      Uri.parse(
-          'https://api.github.com/repos/Numam2/gitconnect/commits'), // Replace with your repo details
-      headers: {
-        'Authorization': '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',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      setState(() {
-        commits = jsonDecode(response.body);
-      });
-    } else {
-      throw Exception('Failed to load commits');
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchCommits();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        '${commits.length}',
-        style: const TextStyle(color: Colors.white),
+    final commits = Provider.of<List<History>>(context);
+
+    if (commits.isEmpty) {
+      return const Center(
+          child: SizedBox(
+        height: 50,
+        child: CircularProgressIndicator(),
+      ));
+    }
+    return Padding(
+      padding:
+          EdgeInsets.all((MediaQuery.of(context).size.width) > 900 ? 20.0 : 0),
+      child: ListView.builder(
+        itemCount: commits.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                  color: Colors.black45.withOpacity(0.25),
+                  borderRadius: const BorderRadius.all(Radius.circular(12))),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    commits[index].message!,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                      '${DateFormat.MMMMd().format(commits[index].date!)}, ${DateFormat.Hm().format(commits[index].date!)}',
+                      style: const TextStyle(color: Colors.grey, fontSize: 12))
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
