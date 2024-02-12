@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:git_connect/commit_list.dart';
 import 'package:git_connect/connection.dart';
 import 'package:git_connect/history.dart';
+import 'package:git_connect/main.dart';
 import 'package:git_connect/project_info.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +39,12 @@ class _HomeState extends State<Home> {
               child: IconButton(
                   iconSize: 30,
                   color: Colors.black,
-                  onPressed: () => setState(() {}),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyApp()),
+                    );
+                  },
                   icon: const Icon(Icons.update_rounded)),
             )
           ],
