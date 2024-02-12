@@ -32,6 +32,16 @@ class _HomeState extends State<Home> {
             widget.title,
             style: const TextStyle(color: Colors.black),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: IconButton(
+                  iconSize: 30,
+                  color: Colors.black,
+                  onPressed: () => setState(() {}),
+                  icon: const Icon(Icons.update_rounded)),
+            )
+          ],
         ),
         body: StreamProvider<List<History>>(
             initialData: const [],
